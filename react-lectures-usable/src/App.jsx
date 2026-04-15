@@ -16,6 +16,15 @@ function App() {
 
   return (
     <div className="App">
+      {/* 5. Use State Hook */}
+      {/* <Login /> */}
+      {/* <UseStateExample /> */}
+
+      {/* 4. Event handler  */}
+      {/* <ClickEvent /> */}
+
+      {/* 3. Conditional rendering */}
+      {/* <PackList /> */}
      
       {/* 2. Components and Props */}
       {/* 
