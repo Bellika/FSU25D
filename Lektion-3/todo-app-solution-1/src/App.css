@@ -1,0 +1,14 @@
+.App {
+  width: 500px;
+  margin: 30px auto;
+}
+
+.odd {
+  background-color: beige
+}
+
+.done,
+.done p,
+.done li {
+  text-decoration: line-through;
+}

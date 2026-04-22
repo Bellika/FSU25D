@@ -1,0 +1,27 @@
+#root {
+  text-align: center;
+}
+
+#post {
+  width: 960px;
+  margin: 20px auto;
+  border: 3px solid skyblue;
+  padding: 10px;
+}
+
+
+#comment-section {
+  border: 3px solid purple;
+  padding: 10px;
+  margin-top: 10px;
+  
+}
+
+.comment {
+  display: flex;
+  justify-content: center;
+}
+
+.author-info {
+  border: 3px solid green;
+}

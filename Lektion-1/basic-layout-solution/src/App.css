@@ -1,0 +1,59 @@
+#container {
+  width: 960px;
+  margin: 20px auto;
+  /* border: 1px solid #333; */
+  /* text-align: center; */
+}
+
+header {
+  background-color: skyblue;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+header nav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 10px;
+}
+
+header nav a {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+
+#content {
+  display: flex;
+}
+
+main {
+  width: 78%;
+  background-color: wheat;
+  height: 300px;
+  margin-left: 2%;
+}
+
+aside {
+  width: 20%;
+  background-color: pink;
+  height: 300px;
+}
+
+aside nav {
+  display: flex;
+  flex-flow: wrap column;
+  height: 100%;
+}
+
+aside nav a {
+  margin: 10px 20px;
+  display: inline-block;
+}
+
+footer {
+  background-color: tomato;
+  height: 100px;
+  margin-top: 20px;
+}
