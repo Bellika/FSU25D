@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+#register-form-wrapper {
+    width: 500px !important;
+    margin: 20px auto;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="submit"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+input[type="submit"] {
+    background: lightgreen;
+}
+
+.form-row {
+    margin: 10px 0;
+}
+
+.success {
+    width: 100%;
+    border: 1px solid green;
+    background-color: lightgreen;
+    border-radius: 5px;
+    padding: 10px;
+}
