@@ -1,0 +1,69 @@
+.todoItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s;
+}
+
+.todoItem:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.todoInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.todoInput:disabled {
+  background-color: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+
+.todoInput:enabled {
+  background-color: white;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.3s, transform 0.1s;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.editButton {
+  composes: button;
+  background-color: #2196F3;
+  color: white;
+}
+
+.completeButton {
+  composes: button;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.deleteButton {
+  composes: button;
+  background-color: #f44336;
+  color: white;
+}
