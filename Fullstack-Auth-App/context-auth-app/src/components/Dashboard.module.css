@@ -1,0 +1,116 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-small);
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.title {
+  margin: 0;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.logoutButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--button-danger-bg);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: var(--button-danger-hover);
+}
+
+.themeButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--button-secondary-bg);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.themeButton:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+.content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-small);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h2,
+.card h3 {
+  color: var(--text-primary);
+  margin-top: 0;
+  transition: color 0.3s ease;
+}
+
+.card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.list {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: monospace;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.warning {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: 4px;
+  color: var(--warning-text);
+  transition: all 0.3s ease;
+}
