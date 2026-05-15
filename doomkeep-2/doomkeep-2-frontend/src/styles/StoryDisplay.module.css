@@ -1,0 +1,143 @@
+/**
+ * STORY DISPLAY STYLES
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Current Scene - Main story panel */
+.currentScene {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--accent-gold);
+  padding: var(--spacing-xl);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 16px rgba(212, 175, 55, 0.3),
+    4px 4px 0 rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* Gold corner decoration */
+.currentScene::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+  box-shadow: 1px 1px 0 var(--accent-blood);
+}
+
+.currentScene::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+  box-shadow: 1px 1px 0 var(--accent-blood);
+}
+
+.sceneText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-pixel);
+}
+
+/* Story Log - Scrollable history */
+.storyLog {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  max-height: 280px;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.logTitle {
+  font-family: var(--font-gothic);
+  font-size: 0.9rem;
+  color: var(--text-gold);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 2px solid var(--border-stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logContent {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-right: var(--spacing-xs);
+}
+
+.emptyLog {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  padding: var(--spacing-lg);
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: 0.9rem;
+}
+
+.logEntry {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-primary);
+  border-left: 3px solid var(--border-stone);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  font-family: var(--font-pixel);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Entry types */
+.logEntry.description {
+  border-left-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.logEntry.choice {
+  border-left-color: var(--accent-gold);
+  color: var(--text-gold);
+  font-weight: 600;
+}
+
+.logEntry.combat {
+  border-left-color: var(--accent-fire);
+  color: var(--accent-fire);
+}
+
+.logEntry.reward {
+  border-left-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .currentScene {
+    padding: var(--spacing-md);
+  }
+
+  .sceneText {
+    font-size: 0.9rem;
+  }
+
+  .storyLog {
+    max-height: 200px;
+  }
+}

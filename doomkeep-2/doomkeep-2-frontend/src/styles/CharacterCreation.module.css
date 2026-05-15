@@ -1,0 +1,302 @@
+/**
+ * CHARACTER CREATION STYLES
+ */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+    var(--bg-primary);
+}
+
+.panel {
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  padding: var(--spacing-xl);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    6px 6px 0 rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+/* Corner decorations */
+.panel::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-gold);
+  box-shadow: 2px 2px 0 var(--accent-blood);
+}
+
+.panel::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-gold);
+  box-shadow: 2px 2px 0 var(--accent-blood);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: 2.5rem;
+  text-shadow:
+    3px 3px 0 var(--accent-blood),
+    6px 6px 12px rgba(139, 0, 0, 0.6);
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
+  font-family: var(--font-pixel);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Form Group */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-family: var(--font-gothic);
+  font-size: 1.1rem;
+  color: var(--text-gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.input {
+  font-size: 1.1rem;
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border: var(--border-width) solid var(--border-stone);
+  color: var(--text-primary);
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.7),
+    2px 2px 0 var(--border-metal);
+}
+
+.input:focus {
+  border-color: var(--accent-gold);
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Class Grid - Boxy layout */
+.classGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.classCard {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-stone);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: all 0.1s;
+  position: relative;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.classCard:hover {
+  border-color: var(--accent-gold);
+  transform: translate(-2px, -2px);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.classCard.selected {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 16px rgba(212, 175, 55, 0.4),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.classIcon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.className {
+  font-family: var(--font-gothic);
+  text-align: center;
+  color: var(--accent-gold);
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.classDescription {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-md);
+  min-height: 60px;
+  font-family: var(--font-pixel);
+}
+
+/* Stats - Grid style */
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 2px solid var(--border-stone);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-family: var(--font-pixel);
+}
+
+.statLabel {
+  color: var(--text-secondary);
+}
+
+.statValue {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Attributes */
+.attributes {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--spacing-xs);
+  font-size: 0.8rem;
+  font-family: var(--font-pixel);
+}
+
+.attribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.attribute span {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+/* Selected Indicator */
+.selectedIndicator {
+  position: absolute;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: var(--font-pixel);
+  box-shadow: 2px 2px 0 var(--accent-blood);
+}
+
+/* Start Button */
+.startButton {
+  background: var(--bg-panel);
+  color: var(--text-gold);
+  font-family: var(--font-gothic);
+  font-size: 1.2rem;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: var(--border-width) solid var(--border-metal);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: var(--spacing-md);
+  transition: all 0.1s;
+  box-shadow:
+    3px 3px 0 var(--border-stone),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+.startButton:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  transform: translate(-2px, -2px);
+  box-shadow:
+    5px 5px 0 var(--border-stone),
+    8px 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.startButton:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow:
+    1px 1px 0 var(--border-stone),
+    2px 2px 0 rgba(0, 0, 0, 0.6);
+}
+
+.startButton:disabled {
+  background: var(--bg-tertiary);
+  border-color: var(--border-stone);
+  color: var(--text-dim);
+  box-shadow: none;
+}
+
+/* Flavor Text */
+.flavorText {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85rem;
+  margin-top: var(--spacing-lg);
+  margin-bottom: 0;
+  font-family: var(--font-pixel);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .panel {
+    padding: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .classGrid {
+    grid-template-columns: 1fr;
+  }
+}

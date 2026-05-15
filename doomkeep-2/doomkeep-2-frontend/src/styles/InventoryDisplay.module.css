@@ -1,0 +1,138 @@
+/**
+ * INVENTORY DISPLAY STYLES
+ */
+
+.container {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  padding: var(--spacing-md);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-family: var(--font-gothic);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-gold);
+  border-bottom: 2px solid var(--border-stone);
+  padding-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-dim);
+  font-style: italic;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+}
+
+.emptyState p {
+  margin: 0;
+}
+
+/* Item Grid */
+.itemGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--spacing-xs);
+}
+
+.itemCard {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-stone);
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  transition: all 0.1s;
+  position: relative;
+  aspect-ratio: 1;
+  box-shadow:
+    inset 1px 1px 3px rgba(0, 0, 0, 0.7),
+    2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.itemCard:hover {
+  border-color: var(--accent-gold);
+  transform: translate(-1px, -1px);
+  box-shadow:
+    inset 1px 1px 3px rgba(0, 0, 0, 0.7),
+    0 0 8px rgba(212, 175, 55, 0.4),
+    3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.itemIcon {
+  font-size: 2rem;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.6));
+}
+
+.itemName {
+  font-size: 0.7rem;
+  color: var(--text-gold);
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.1;
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+}
+
+.itemQuality {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-align: center;
+  font-family: var(--font-pixel);
+}
+
+/* Tooltip - Simple version */
+.itemCard::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 2px solid var(--border-metal);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 100;
+  font-family: var(--font-pixel);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.itemCard:hover::after {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .itemGrid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 4px;
+  }
+
+  .itemCard {
+    padding: 4px;
+  }
+
+  .itemIcon {
+    font-size: 1.5rem;
+  }
+
+  .itemName {
+    font-size: 0.65rem;
+  }
+}

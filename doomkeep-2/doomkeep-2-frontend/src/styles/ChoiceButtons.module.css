@@ -1,0 +1,147 @@
+/**
+ * CHOICE BUTTONS STYLES
+ */
+
+.container {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  padding: var(--spacing-lg);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-family: var(--font-gothic);
+  text-align: center;
+  color: var(--text-gold);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.choicesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Base Button - Boxy retro style */
+.choiceButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-stone);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  text-align: left;
+  transition: all 0.1s;
+  cursor: pointer;
+  position: relative;
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  transform: translate(-2px, -2px);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton:active {
+  transform: translate(2px, 2px);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.text {
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* Choice Type Variants - Pixelated left border */
+.choiceButton.combat {
+  border-left: 6px solid var(--accent-fire);
+}
+
+.choiceButton.combat:hover {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 12px rgba(255, 69, 0, 0.4),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton.explore {
+  border-left: 6px solid #8b7355;
+}
+
+.choiceButton.explore:hover {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 12px rgba(139, 115, 85, 0.4),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton.rest,
+.choiceButton.bonfire {
+  border-left: 6px solid var(--accent-gold);
+}
+
+.choiceButton.rest:hover,
+.choiceButton.bonfire:hover {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 12px rgba(212, 175, 55, 0.4),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton.dialogue {
+  border-left: 6px solid #b8860b;
+}
+
+.choiceButton.dialogue:hover {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 12px rgba(184, 134, 11, 0.4),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.choiceButton.stealth {
+  border-left: 6px solid #4a4a4a;
+}
+
+.choiceButton.stealth:hover {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 12px rgba(74, 74, 74, 0.4),
+    5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .choiceButton {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.85rem;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+}

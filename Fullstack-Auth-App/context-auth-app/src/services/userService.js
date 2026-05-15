@@ -13,6 +13,11 @@ export const userService = {
     return response.data;
   },
 
+  refreshToken: async () => {
+    const response = await api.post('/users/refresh')
+    return response.data
+  },
+
   // Get protected data (requires JWT)
   getProtectedData: async () => {
     const response = await api.get('/users/protected');

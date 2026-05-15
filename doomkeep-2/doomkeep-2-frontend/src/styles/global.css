@@ -1,0 +1,313 @@
+/**
+ * GLOBAL STYLES - Dark Gothic Theme
+ *
+ * Classic dark RPG aesthetic:
+ * - Pixelated fonts
+ * - Boxy UI elements
+ * - Stone/metal textures
+ * - Dark gothic atmosphere
+ */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@400;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  /* Colors - Dark gothic palette */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1412;
+  --bg-tertiary: #2a1f1a;
+  --bg-panel: #1f1612;
+
+  --text-primary: #d4c4a8;
+  --text-secondary: #a08868;
+  --text-dim: #6a5848;
+  --text-gold: #d4af37;
+
+  /* Accent colors - Red/Orange/Gold */
+  --accent-fire: #ff4500;
+  --accent-blood: #8b0000;
+  --accent-gold: #d4af37;
+  --accent-danger: #b22222;
+
+  /* UI colors */
+  --border-stone: #4a3f35;
+  --border-metal: #5a4f45;
+  --border-bright: #7a6f65;
+  --shadow: rgba(0, 0, 0, 0.8);
+
+  /* Health colors */
+  --health-high: #ff0000;
+  --health-mid: #ff6600;
+  --health-low: #8b0000;
+
+  /* Fonts - Pixelated */
+  --font-pixel: 'VT323', monospace;
+  --font-gothic: 'Cinzel', serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border - Boxy retro style */
+  --border-width: 3px;
+  --border-radius: 0; /* No rounded corners for retro */
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  image-rendering: pixelated; /* Pixelate images */
+}
+
+body {
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.4;
+  overflow-x: hidden;
+  letter-spacing: 0.5px;
+}
+
+/* Stone texture background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.3) 2px,
+      rgba(0, 0, 0, 0.3) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.2) 2px,
+      rgba(0, 0, 0, 0.2) 4px
+    );
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+/* CRT scanline effect (subtle) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-gothic);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--accent-gold);
+  text-shadow:
+    2px 2px 0 var(--accent-blood),
+    4px 4px 8px rgba(139, 0, 0, 0.5);
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: var(--text-gold);
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-pixel);
+}
+
+/* Links */
+a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-fire);
+}
+
+/* Buttons - Boxy retro style */
+button {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  cursor: pointer;
+  border: var(--border-width) solid var(--border-metal);
+  outline: none;
+  transition: all 0.1s;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* Button pressed effect */
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--text-dim);
+}
+
+/* Boxy shadow for depth */
+button:not(:disabled) {
+  box-shadow:
+    2px 2px 0 var(--border-stone),
+    4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* Inputs - Stone panel style */
+input,
+textarea {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-stone);
+  padding: var(--spacing-sm);
+  border-radius: 0;
+  transition: border-color 0.2s;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Scrollbar - Gothic style */
+::-webkit-scrollbar {
+  width: 16px;
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-stone);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-metal);
+  border: 2px solid var(--border-stone);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Panel styling - Stone/Metal texture */
+.panel {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    4px 4px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Corner decorations for panels */
+.panel::before,
+.panel::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+}
+
+.panel::before {
+  top: -2px;
+  left: -2px;
+}
+
+.panel::after {
+  bottom: -2px;
+  right: -2px;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-danger {
+  color: var(--accent-danger);
+}
+
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.text-fire {
+  color: var(--accent-fire);
+}
+
+/* App container */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pixel grid overlay (very subtle) */
+.pixel-grid {
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent);
+  background-size: 4px 4px;
+}

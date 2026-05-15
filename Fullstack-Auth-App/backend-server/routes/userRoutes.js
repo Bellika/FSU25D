@@ -7,14 +7,18 @@ import {
   deleteUser,
   loginUser,
   logoutUser,
-  getProtectedData
+  getProtectedData,
+  refreshAccessToken
 } from '../controllers/userController.js';
+
 import { authenticateToken } from '../middleware/authMiddleware.js';
+import { requireRole } from '../middleware/rbacMiddleware.js';
+import { loginLimiter } from '../middleware/rateLimitMiddleware.js';
 
 const router = express.Router();
 
 // Authentication routes
-router.post('/login', loginUser);
+router.post('/login', loginLimiter, loginUser);
 router.post('/logout', logoutUser);
 
 // Protected route - requires JWT

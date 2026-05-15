@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import userService from '../services/userService';
 
 const AuthContext = createContext();
@@ -14,6 +14,33 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const refreshIntervalRef = useRef(null)
+
+  const startTokenRefresh = () => {
+    if (refreshIntervalRef.current) {
+        clearInterval(refreshIntervalRef.current)
+    }
+
+    refreshIntervalRef.current = setInterval(async () => {
+        try {
+            const data = await userService.refreshToken()
+            if (data.success) {
+                setUser(data.data)
+                console.log('Token refreshed automatically')
+            }
+        } catch (error) {
+            console.error('Auto refresh failed', error)
+            logout()
+        }
+    }, 14 * 60 * 1000)
+  }
+
+  const stopTokenRefresh = () => {
+    if (refreshIntervalRef.current) {
+        clearInterval(refreshIntervalRef.current)
+        refreshIntervalRef.current = null
+    }
+  }
 
   const login = async (username, password) => {
     try {
@@ -24,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         // No need to store anything in localStorage
         setUser(data.data);
         setIsAuthenticated(true);
+        startTokenRefresh()
         return { success: true };
       }
       return { success: false, error: data.error || 'Login failed' };
@@ -40,10 +68,15 @@ export const AuthProvider = ({ children }) => {
       console.error('Logout error:', error);
     } finally {
       // Clear local state regardless of API result
+      startTokenRefresh()
       setUser(null);
       setIsAuthenticated(false);
     }
   };
+
+  useEffect(() => {
+    return () => stopTokenRefresh()
+  })
 
   const value = {
     user,

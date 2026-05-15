@@ -1,0 +1,180 @@
+/**
+ * CHARACTER STATS STYLES
+ */
+
+.container {
+  background: var(--bg-panel);
+  border: var(--border-width) solid var(--border-metal);
+  padding: var(--spacing-md);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-family: var(--font-gothic);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-gold);
+  border-bottom: 2px solid var(--border-stone);
+  padding-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Identity */
+.identity {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 2px solid var(--border-stone);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.name {
+  font-family: var(--font-gothic);
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 var(--accent-blood);
+}
+
+.class {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: var(--font-pixel);
+}
+
+/* Stat Group */
+.statGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.statLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+}
+
+.statValue {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Health Bar */
+.healthBarContainer {
+  width: 100%;
+  height: 18px;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-stone);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.healthBar {
+  height: 100%;
+  transition: width 0.3s;
+  position: relative;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+/* Pixelated health bar effect */
+.healthBar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+}
+
+.healthBar.healthy {
+  background: linear-gradient(to bottom, var(--health-high), var(--accent-blood));
+}
+
+.healthBar.warning {
+  background: linear-gradient(to bottom, var(--health-mid), var(--accent-blood));
+}
+
+.healthBar.critical {
+  background: linear-gradient(to bottom, var(--health-low), #400000);
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Health Potion Display - Potion flasks */
+.healthPotDisplay {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  justify-content: center;
+}
+
+.healthPotIcon {
+  font-size: 1.3rem;
+  opacity: 0.2;
+  transition: opacity 0.2s;
+  filter: grayscale(100%);
+}
+
+.healthPotIcon.full {
+  opacity: 1;
+  filter: grayscale(0%) drop-shadow(0 0 4px rgba(255, 140, 0, 0.6));
+}
+
+/* Weapon */
+.weaponName {
+  font-size: 0.85rem;
+  color: var(--text-gold);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-primary);
+  border-left: 3px solid var(--accent-gold);
+  margin-top: var(--spacing-xs);
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.5),
+    2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-sm);
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .name {
+    font-size: 1.1rem;
+  }
+}
