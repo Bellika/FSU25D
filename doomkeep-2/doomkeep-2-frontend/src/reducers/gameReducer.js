@@ -19,7 +19,9 @@ export const ACTIONS = {
   START_GAME: 'START_GAME',
   MAKE_CHOICE: 'MAKE_CHOICE',
   UPDATE_SCENE: 'UPDATE_SCENE',
-  ADD_TO_STORY_LOG: 'ADD_TO_STORY_LOG'
+  ADD_TO_STORY_LOG: 'ADD_TO_STORY_LOG',
+  SET_LOADING: 'SET_LOADING',
+  SET_ERROR: 'SET_ERROR'
 };
 
 // Initial State - Default values when game starts
@@ -47,7 +49,11 @@ export const initialState = {
 
   storyLog: [],
 
-  lastBonfire: null
+  lastBonfire: null,
+
+  // AI-related state
+  loading: false,
+  error: null
 };
 
 /**
@@ -159,6 +165,26 @@ export function gameReducer(state, action) {
             type
           }
         ]
+      };
+    }
+
+    // ========================================
+    // SET_LOADING - Set loading state (AI generating)
+    // ========================================
+    case ACTIONS.SET_LOADING: {
+      return {
+        ...state,
+        loading: action.payload
+      };
+    }
+
+    // ========================================
+    // SET_ERROR - Set error state
+    // ========================================
+    case ACTIONS.SET_ERROR: {
+      return {
+        ...state,
+        error: action.payload
       };
     }
 

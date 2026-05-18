@@ -2,28 +2,38 @@
  * GAME CONTAINER
  *
  * CONCEPTS:
- * - useReducer hook (main focus!)
+ * - useReducer hook (Lesson 1)
+ * - Custom hooks: useAI (Lesson 2), useDocumentTitle (Lesson 1.5)
  * - Component composition
  * - State flow (dispatch actions to reducer)
  * - Conditional rendering (show different components based on gameStatus)
+ * - Loading and error states
  *
  * This is the "parent component" that holds all game state and
  * distributes it to child components via props.
+ *
+ * Note: Auto-scroll is handled inside StoryDisplay component.
  */
 
 import { useReducer } from 'react';
 import { gameReducer, initialState, ACTIONS } from '../reducers/gameReducer';
 import { getSceneById } from '../data/initialData';
+import { useAI } from '../hooks/useAI';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+
 import CharacterCreation from './CharacterCreation';
 import StoryDisplay from './StoryDisplay';
 import CharacterStats from './CharacterStats';
 import ChoiceButtons from './ChoiceButtons';
 import InventoryDisplay from './InventoryDisplay';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
+
 import styles from '../styles/GameContainer.module.css';
 
 function GameContainer() {
   /**
-   * useReducer Hook
+   * useReducer Hook (Lesson 1)
    *
    * Syntax: const [state, dispatch] = useReducer(reducer, initialState)
    *
@@ -33,6 +43,29 @@ function GameContainer() {
    * - initialState: Starting state (defined in gameReducer.js)
    */
   const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  /**
+   * useAI Hook (Lesson 2)
+   *
+   * Custom hook that handles OpenAI API calls
+   * Returns: { generateStory, loading, error, abort }
+   */
+  const { generateStory, loading, error } = useAI();
+
+  /**
+   * Note: Auto-scroll is now handled inside StoryDisplay component
+   * (Moved to keep scroll logic close to the scrollable element)
+   */
+
+  /**
+   * useDocumentTitle Hook (Lesson 1.5)
+   *
+   * Updates browser tab title dynamically
+   */
+  const title = state.character.name
+    ? `Doomkeep - ${state.character.name} (Lvl ${state.character.level})`
+    : "Doomkeep";
+  useDocumentTitle(title);
 
   // ========================================
   // Event Handlers
@@ -58,32 +91,52 @@ function GameContainer() {
   };
 
   /**
-   * Handle when player selects an option
+   * Handle when player selects an option (Lesson 2: AI Integration)
+   *
+   * Now uses AI to generate next scene instead of hardcoded scenes
    */
-  const handleChoice = (choiceIndex) => {
+  const handleMakeChoice = async (choiceIndex) => {
     const selectedChoice = state.currentScene.choices[choiceIndex];
 
-    // Dispatch MAKE_CHOICE action (logs the choice)
+    // Log the choice to story
     dispatch({
       type: ACTIONS.MAKE_CHOICE,
       payload: { choiceIndex }
     });
 
-    // Get next scene based on choice
-    const nextScene = getSceneById(selectedChoice.nextScene);
+    try {
+      // Set loading state while AI generates
+      dispatch({ type: ACTIONS.SET_LOADING, payload: true });
+      dispatch({ type: ACTIONS.SET_ERROR, payload: null });
 
-    // Handle any rewards (souls, items)
-    if (selectedChoice.reward) {
-      handleReward(selectedChoice.reward);
-    }
+      // Generate new scene with AI (pass the player's choice!)
+      const newScene = await generateStory(
+        state.character,
+        state.storyLog,
+        selectedChoice.text  // Tell AI what the player chose
+      );
 
-    // Update to next scene
-    setTimeout(() => {
+      if (newScene) {
+        // Handle any rewards from the choice
+        if (selectedChoice.reward) {
+          handleReward(selectedChoice.reward);
+        }
+
+        // Update to AI-generated scene
+        dispatch({
+          type: ACTIONS.UPDATE_SCENE,
+          payload: { scene: newScene }
+        });
+      }
+    } catch (err) {
+      console.error('AI Error:', err);
       dispatch({
-        type: ACTIONS.UPDATE_SCENE,
-        payload: { scene: nextScene }
+        type: ACTIONS.SET_ERROR,
+        payload: err.message
       });
-    }, 500); // Small delay for better UX
+    } finally {
+      dispatch({ type: ACTIONS.SET_LOADING, payload: false });
+    }
   };
 
   /**
@@ -91,12 +144,23 @@ function GameContainer() {
    */
   const handleReward = (reward) => {
     if (reward.souls) {
-      // TODO: Will be fully implemented later
       console.log(`+${reward.souls} souls`);
+      // TODO: Add souls to character (Lesson 3)
     }
     if (reward.item) {
-      // TODO: Will be fully implemented later
       console.log(`Found item: ${reward.item.name}`);
+      // TODO: Add item to inventory (Lesson 3)
+    }
+  };
+
+  /**
+   * Retry handler for error state
+   */
+  const handleRetry = () => {
+    dispatch({ type: ACTIONS.SET_ERROR, payload: null });
+    // Retry with first choice (or could track last choice)
+    if (state.currentScene.choices && state.currentScene.choices.length > 0) {
+      handleMakeChoice(0);
     }
   };
 
@@ -128,10 +192,25 @@ function GameContainer() {
             currentScene={state.currentScene}
             storyLog={state.storyLog}
           />
-          <ChoiceButtons
-            choices={state.currentScene.choices}
-            onChoice={handleChoice}
-          />
+
+          {/* Loading State (Lesson 2) */}
+          {loading && <LoadingSpinner />}
+
+          {/* Error State (Lesson 2) */}
+          {error && (
+            <ErrorMessage
+              error={error}
+              onRetry={handleRetry}
+            />
+          )}
+
+          {/* Choice Buttons (only show when not loading) */}
+          {!loading && state.currentScene.choices && (
+            <ChoiceButtons
+              choices={state.currentScene.choices}
+              onChoice={handleMakeChoice}
+            />
+          )}
         </main>
 
         {/* Right Panel: Future use (map, quests, etc.) */}
