@@ -1,0 +1,47 @@
+.container {
+  margin: var(--spacing-sm) 0;
+}
+
+.button {
+  width: 100%;
+  background: var(--bg-panel);
+  border: 2px solid var(--accent-health);
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: all 0.2s;
+  font-family: var(--font-pixel);
+  color: var(--text-primary);
+}
+
+.button:hover:not(.disabled) {
+  background: var(--bg-primary);
+  border-color: var(--accent-health);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.button.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: var(--border-stone);
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.label {
+  flex: 1;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.charges {
+  color: var(--accent-health);
+  font-weight: bold;
+  font-size: 0.9rem;
+}

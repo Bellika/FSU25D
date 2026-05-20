@@ -23,6 +23,25 @@
   letter-spacing: 2px;
 }
 
+/* Item Counts Summary */
+.itemCounts {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-stone);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.itemCounts span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* Empty State */
 .emptyState {
   text-align: center;

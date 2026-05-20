@@ -21,7 +21,7 @@ export function useAI() {
   const [error, setError] = useState(null);
   const abortControllerRef = useRef(null);
 
-  const generateStory = async (character, storyLog, playerChoice = null) => {
+  const generateStory = async (character, storyLog, playerChoice = null, inventory = [], outcomeContext = '') => {
     // Abort previous request if exists
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -38,7 +38,7 @@ export function useAI() {
         throw new Error('OpenAI API key not found. Check your .env.local file.');
       }
 
-      const userPrompt = buildUserPrompt(character, storyLog, playerChoice);
+      const userPrompt = buildUserPrompt(character, storyLog, playerChoice, inventory, outcomeContext);
 
       console.log('🤖 AI Prompt:', userPrompt);
 

@@ -6,54 +6,70 @@
  */
 
 export const SYSTEM_PROMPT = `You are the Dungeon Master of Doomkeep, a dark fantasy world.
-Generate atmospheric, challenging scenes with difficult choices.
+Generate atmospheric, story-driven scenes with meaningful choices.
 
 CRITICAL RULES:
 - ALWAYS advance the story based on the player's action
-- If player chose combat: describe the combat outcome (success/failure/partial)
-- If player chose explore: reveal new area or discovery
-- If player chose rest: describe resting at a bonfire
 - Keep descriptions under 150 words
 - Generate exactly 3 NEW choices (not repeating previous options)
 - Use dark, ominous tone
 - Reference player's inventory when relevant
-- Include risk indicators (low/medium/high)
 - NEVER loop - the story must progress forward
+- Focus on EXPLORATION and STORYTELLING (not combat mechanics)
+
+IMPORTANT - What NOT to include:
+- DO NOT mention "health potions" in the story (player has a separate UI button)
+- DO NOT describe detailed combat mechanics (no damage numbers, no dice rolls)
+- DO NOT create combat scenarios unless absolutely necessary for the story
+- Keep action abstract and story-focused
 
 NARRATIVE PERSPECTIVE:
 - ALWAYS use second person ("you", "your") when addressing the player
-- NEVER use third person with the player's name (not "Markus does..." but "You do...")
-- Write as if speaking directly to the player
-- Example: "You swing your sword at the skeleton" NOT "Markus swings his sword"
-- Example: "Your blade connects with the armor" NOT "His blade connects"
+- NEVER use third person with the player's name
+- Example: "You explore the corridor" NOT "Markus explores the corridor"
+
+CHOICE VARIETY - Mix these types:
+- Exploration (investigate, search, enter)
+- Dialogue (speak, negotiate, question)
+- Problem-solving (solve puzzle, find clues)
+- Moral choices (help/ignore, take/leave)
 
 Respond ONLY in valid JSON format:
 {
-  "description": "scene description showing outcome of player's action",
+  "description": "scene description",
   "choices": [
-    { "text": "choice text", "type": "combat|explore|rest", "risk": "low|medium|high" },
-    { "text": "choice text", "type": "combat|explore|rest", "risk": "low|medium|high" },
-    { "text": "choice text", "type": "combat|explore|rest", "risk": "low|medium|high" }
+    { "text": "choice text", "type": "explore", "risk": "low" },
+    { "text": "choice text", "type": "explore", "risk": "medium" },
+    { "text": "choice text", "type": "explore", "risk": "high" }
   ]
 }`;
 
 /**
  * Build user prompt from character, story context, and player's choice
  */
-export function buildUserPrompt(character, storyLog, playerChoice = null) {
+export function buildUserPrompt(character, storyLog, playerChoice = null, inventory = [], outcomeContext = '') {
   const recentStory = storyLog
     .slice(-2)
     .map(entry => entry.text)
     .join('\n');
 
-  const inventoryList = character.inventory
-    ? character.inventory.map(item => item.name).join(', ')
+  const inventoryList = inventory && inventory.length > 0
+    ? inventory.map(item => item.name).join(', ')
     : 'None';
+
+  // Calculate health status
+  const healthPercent = (character.health / character.maxHealth) * 100;
+  let healthStatus = 'Healthy';
+  if (healthPercent <= 25) healthStatus = 'CRITICAL - Near death!';
+  else if (healthPercent <= 50) healthStatus = 'Wounded';
+  else if (healthPercent <= 75) healthStatus = 'Injured';
 
   let prompt = `
 Character: ${character.name}, Level ${character.level} ${character.class}
-HP: ${character.health}/${character.maxHealth}
-Weapon: ${character.weapon.name}
+HP: ${character.health}/${character.maxHealth} (${healthStatus})
+Souls: ${character.souls}
+Weapon: ${character.weapon?.name || 'None'}
+Health Potions: ${character.healthPotCharges}/${character.maxHealthPotCharges}
 Inventory: ${inventoryList}
 
 Recent story:
@@ -61,12 +77,23 @@ ${recentStory || 'The adventure begins...'}
 `;
 
   if (playerChoice) {
-    prompt += `\n\nPlayer's action: ${playerChoice}
+    prompt += `\n\nPlayer's action: "${playerChoice}"`;
 
-IMPORTANT: Generate the OUTCOME of this action. The story must progress. Show what happens as a result of "${playerChoice}".`;
+    // Add outcome context if provided (damage/loot that happened)
+    if (outcomeContext) {
+      prompt += `\n\nOUTCOME: ${outcomeContext}`;
+      prompt += `\n\nIMPORTANT: Weave this outcome into your description! Explain WHY and HOW the player took damage or found the item. Make it narrative and engaging.`;
+    }
+
+    prompt += `\n\nGenerate the next scene showing what happens as a result.`;
   }
 
-  prompt += `\n\nGenerate the next scene with 3 NEW choices.`;
+  prompt += `\n\nGenerate 3 NEW choices for what to do next.`;
+
+  // Warn AI if player has low health
+  if (healthPercent <= 25) {
+    prompt += `\n\n⚠️ WARNING: Player HP is critically low! Consider including a safe/healing option.`;
+  }
 
   return prompt.trim();
 }

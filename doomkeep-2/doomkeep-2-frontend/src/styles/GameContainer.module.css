@@ -86,3 +86,55 @@
     order: 1;
   }
 }
+
+/* Save Button (Lesson 3) */
+.saveButton {
+  width: 100%;
+  background: var(--bg-panel);
+  border: 2px solid var(--accent-gold);
+  padding: var(--spacing-sm);
+  margin: var(--spacing-sm) 0;
+  cursor: pointer;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  color: var(--text-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.saveButton:hover {
+  background: var(--bg-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.saveButton:active {
+  transform: translateY(0);
+}
+
+/* New Game Button (Lesson 3) */
+.newGameButton {
+  width: 100%;
+  background: var(--bg-panel);
+  border: 2px solid #d32f2f;
+  padding: var(--spacing-sm);
+  margin: var(--spacing-sm) 0;
+  cursor: pointer;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  color: #d32f2f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.newGameButton:hover {
+  background: rgba(211, 47, 47, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(211, 47, 47, 0.3);
+}
+
+.newGameButton:active {
+  transform: translateY(0);
+}

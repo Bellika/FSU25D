@@ -21,7 +21,13 @@ export const ACTIONS = {
   UPDATE_SCENE: 'UPDATE_SCENE',
   ADD_TO_STORY_LOG: 'ADD_TO_STORY_LOG',
   SET_LOADING: 'SET_LOADING',
-  SET_ERROR: 'SET_ERROR'
+  SET_ERROR: 'SET_ERROR',
+  // Lesson 3: Persistence & Simple Mechanics
+  USE_HEALTH_POT: 'USE_HEALTH_POT',
+  TAKE_DAMAGE: 'TAKE_DAMAGE',
+  ADD_ITEM: 'ADD_ITEM',
+  SAVE_GAME: 'SAVE_GAME',
+  LOAD_GAME: 'LOAD_GAME'
 };
 
 // Initial State - Default values when game starts
@@ -186,6 +192,107 @@ export function gameReducer(state, action) {
         ...state,
         error: action.payload
       };
+    }
+
+    // ========================================
+    // LESSON 3: USE HEALTH POTION (simple example)
+    // ========================================
+    case ACTIONS.USE_HEALTH_POT: {
+      if (state.character.healthPotCharges <= 0) {
+        return state; // No charges left
+      }
+
+      const healAmount = 40;
+      const newHealth = Math.min(
+        state.character.maxHealth,
+        state.character.health + healAmount
+      );
+      const actualHeal = newHealth - state.character.health;
+
+      return {
+        ...state,
+        character: {
+          ...state.character,
+          health: newHealth,
+          healthPotCharges: state.character.healthPotCharges - 1
+        },
+        storyLog: [
+          ...state.storyLog,
+          {
+            text: `🧪 Used health potion. Restored ${actualHeal} HP.`,
+            timestamp: Date.now(),
+            type: 'system'
+          }
+        ]
+      };
+    }
+
+    // ========================================
+    // LESSON 3: SIMPLE DAMAGE (from risky choices)
+    // ========================================
+    case ACTIONS.TAKE_DAMAGE: {
+      const { damage } = action.payload;
+      const newHealth = Math.max(0, state.character.health - damage);
+
+      return {
+        ...state,
+        character: {
+          ...state.character,
+          health: newHealth
+        },
+        storyLog: [
+          ...state.storyLog,
+          {
+            text: `💥 You take ${damage} damage! HP: ${newHealth}/${state.character.maxHealth}`,
+            timestamp: Date.now(),
+            type: 'damage'
+          }
+        ]
+      };
+    }
+
+    // ========================================
+    // LESSON 3: ADD ITEM (simple loot)
+    // ========================================
+    case ACTIONS.ADD_ITEM: {
+      const { item } = action.payload;
+
+      return {
+        ...state,
+        inventory: [...state.inventory, item],
+        storyLog: [
+          ...state.storyLog,
+          {
+            text: `📦 Found: ${item.name}`,
+            timestamp: Date.now(),
+            type: 'item'
+          }
+        ]
+      };
+    }
+
+    // ========================================
+    // LESSON 3: SAVE/LOAD (localStorage persistence)
+    // ========================================
+
+    // SAVE_GAME - Add save notification to log
+    case ACTIONS.SAVE_GAME: {
+      return {
+        ...state,
+        storyLog: [
+          ...state.storyLog,
+          {
+            text: '💾 Game saved.',
+            timestamp: Date.now(),
+            type: 'system'
+          }
+        ]
+      };
+    }
+
+    // LOAD_GAME - Replace entire state with loaded state
+    case ACTIONS.LOAD_GAME: {
+      return action.payload.state;
     }
 
     // ========================================
